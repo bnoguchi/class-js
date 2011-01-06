@@ -53,8 +53,11 @@ var Class = {
     F.prototype = new this.ctor();
     initializing = false;
     subclass.ctor = F;
+    F.prototype.class = subclass;
+    F.prototype.superclass = this;
     this.subclasses.push(subclass);
     subclass.superclass = this;
+    subclass.subclasses = [];
     subclass.proto(methods);
     return subclass;
   }

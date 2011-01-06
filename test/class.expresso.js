@@ -64,6 +64,9 @@ module.exports = {
   'a subclass should have a reference to its superclass': function () {
     assert.equal(B.superclass, A);
   },
+  'a superclass should have references to its subclasses': function () {
+    assert.deepEqual(A.subclasses, [B]);
+  },
   'a subclass instance should know it is an instance of the subclass': function () {
     assert.ok(b.instanceOf(B));
   },
@@ -73,6 +76,12 @@ module.exports = {
   'a subclass instance should know it is not an instance of a non-ancestor': function () {
     var C = A.subclass();
     assert.ok(! b.instanceOf(C));
+  },
+  'an instance should have access to its class': function () {
+    assert.equal(b.class, B);
+  },
+  'a subclass instance should have access to its superclass': function () {
+    assert.equal(b.superclass, A);
   },
   'a subclass instance method should be able to invoke the super method in the superclass': function () {
     assert.equal(b.bark('at you'), 'woof at you and quack at you');
