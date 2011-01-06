@@ -1,13 +1,12 @@
-var initializing = false, fnTest = /xyz/.test(function () {xyz;}) ? /\b_super\b/ : /.*/;
+var initializing = false, fnTest = (new RegExp("xyz")).test(function () {xyz;}) ? new RegExp("\\b_super\\b") : new RegExp(".*");
 
-function Ctor () {};
-Ctor.prototype.instanceOf = function (class) {
-  return this instanceof class.ctor;
+function Ctor () {}
+Ctor.prototype.instanceOf = function (klass) {
+  return this instanceof klass.ctor;
 };
 
 var Class = {
-  subclasses: [],
-  new: function () {
+  init: function () {
     initializing = true;
     var ret = new this.ctor();
     initializing = false;
@@ -43,7 +42,9 @@ var Class = {
     }
   },
   subclass: function (methods) {
-    var subclass = Object.create(this);
+    function E () {}
+    E.prototype = this;
+    var subclass = new E ();
     function F () {
       if (!initializing && this.init) {
         this.init.apply(this, arguments);
@@ -53,11 +54,9 @@ var Class = {
     F.prototype = new this.ctor();
     initializing = false;
     subclass.ctor = F;
-    F.prototype.class = subclass;
+    F.prototype.klass = subclass;
     F.prototype.superclass = this;
-    this.subclasses.push(subclass);
     subclass.superclass = this;
-    subclass.subclasses = [];
     subclass.proto(methods);
     return subclass;
   }

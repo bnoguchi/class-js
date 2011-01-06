@@ -20,7 +20,7 @@ var B = A.subclass({
 });
 
 
-var b = B.new();
+var b = B.init();
 
 var Animal = Class.subclass({
   init: function (name) {
@@ -39,12 +39,12 @@ var Dog = Animal.subclass({
   },
 });
 
-var animal = Animal.new("animal");
-var dog = Dog.new("spot");
+var animal = Animal.init("animal");
+var dog = Dog.init("spot");
 
 module.exports = {
   'a sublcass should inherit instance attributes from its parent': function () {
-    var b = B.new();
+    var b = B.init();
     assert.equal(b.foo, 'bar');
   },
   'a subclass should inherit instance methods from its parent': function () {
@@ -64,9 +64,6 @@ module.exports = {
   'a subclass should have a reference to its superclass': function () {
     assert.equal(B.superclass, A);
   },
-  'a superclass should have references to its subclasses': function () {
-    assert.deepEqual(A.subclasses, [B]);
-  },
   'a subclass instance should know it is an instance of the subclass': function () {
     assert.ok(b.instanceOf(B));
   },
@@ -78,7 +75,7 @@ module.exports = {
     assert.ok(! b.instanceOf(C));
   },
   'an instance should have access to its class': function () {
-    assert.equal(b.class, B);
+    assert.equal(b.klass, B);
   },
   'a subclass instance should have access to its superclass': function () {
     assert.equal(b.superclass, A);

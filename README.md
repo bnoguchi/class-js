@@ -10,7 +10,7 @@ You can subclass:
     var Lambo = Car.subclass();
 
 To instantiate an object:
-    var auto = Lambo.new();
+    var auto = Lambo.init();
 
 You can declare instance methods when you define your subclass:
     var Animal = Class.subclass({
@@ -22,7 +22,7 @@ You can declare instance methods when you define your subclass:
       }
     });
 
-`init` is a special instance method that is invoked whenever you instantiate an object via Class.new(...).
+`init` is a special instance method that is invoked whenever you instantiate an object via Class.init(...).
 
 You can add instance methods later on after you have defined your subclass:
     Animal.proto({
@@ -38,7 +38,7 @@ All instance methods are inherited by subclasses and descendants:
         this.noise = "Growl";
       }
     });
-    var cub = new Tiger("Tony");
+    var cub = Tiger.init("Tony");
     cub.speak(); // => "Growl"
 
 You can define class methods via:
@@ -50,15 +50,11 @@ Class methods are also inherited.
     Tiger.aClassMethod(); // => "hola"
 
 You can access the class of an object:
-    cub.class === Tiger; // true
+    cub.klass === Tiger; // true
 
 You can also access the superclass from the Class or instantiated Class object:
     Tiger.superclass === Animal; // true
     cub.superclass === Animal; // true
-
-You can also access the subclasses of a Class:
-    Animal.subclasses.indexOf(Tiger) >= 0; // true
-
 ### Tests
 We use the expresso library for our testing. So, first install expresso:
     npm install expresso
