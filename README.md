@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/bnoguchi/class-js.png)](http://travis-ci.org/bnoguchi/class-js)
 ## class-js - Simple OO Class factory
 ---
 
